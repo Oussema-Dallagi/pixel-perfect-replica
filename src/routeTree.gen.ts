@@ -10,13 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LiveRouteImport } from './routes/live'
 import { Route as DevicesIndexRouteImport } from './routes/devices.index'
 import { Route as DevicesIdRouteImport } from './routes/devices.$id'
 import { Route as MeetingsIndexRouteImport } from './routes/meetings.index'
+import { Route as MeetingsIdRouteImport } from './routes/meetings.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LiveRoute = LiveRouteImport.update({
+  id: '/live',
+  path: '/live',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DevicesIndexRoute = DevicesIndexRouteImport.update({
@@ -34,37 +41,64 @@ const MeetingsIndexRoute = MeetingsIndexRouteImport.update({
   path: '/meetings/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MeetingsIdRoute = MeetingsIdRouteImport.update({
+  id: '/meetings/$id',
+  path: '/meetings/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/live': typeof LiveRoute
   '/devices/$id': typeof DevicesIdRoute
+  '/meetings/$id': typeof MeetingsIdRoute
   '/devices/': typeof DevicesIndexRoute
   '/meetings/': typeof MeetingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/live': typeof LiveRoute
   '/devices/$id': typeof DevicesIdRoute
+  '/meetings/$id': typeof MeetingsIdRoute
   '/devices': typeof DevicesIndexRoute
   '/meetings': typeof MeetingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/live': typeof LiveRoute
   '/devices/$id': typeof DevicesIdRoute
+  '/meetings/$id': typeof MeetingsIdRoute
   '/devices/': typeof DevicesIndexRoute
   '/meetings/': typeof MeetingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/devices/$id' | '/devices/' | '/meetings/'
+  fullPaths:
+    | '/'
+    | '/live'
+    | '/devices/$id'
+    | '/meetings/$id'
+    | '/devices/'
+    | '/meetings/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/devices/$id' | '/devices' | '/meetings'
-  id: '__root__' | '/' | '/devices/$id' | '/devices/' | '/meetings/'
+  to:
+    '/' | '/live' | '/devices/$id' | '/meetings/$id' | '/devices' | '/meetings'
+  id:
+    | '__root__'
+    | '/'
+    | '/live'
+    | '/devices/$id'
+    | '/meetings/$id'
+    | '/devices/'
+    | '/meetings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LiveRoute: typeof LiveRoute
   DevicesIdRoute: typeof DevicesIdRoute
+  MeetingsIdRoute: typeof MeetingsIdRoute
   DevicesIndexRoute: typeof DevicesIndexRoute
   MeetingsIndexRoute: typeof MeetingsIndexRoute
 }
@@ -76,6 +110,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/live': {
+      id: '/live'
+      path: '/live'
+      fullPath: '/live'
+      preLoaderRoute: typeof LiveRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/devices/': {
@@ -99,12 +140,21 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MeetingsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/meetings/$id': {
+      id: '/meetings/$id'
+      path: '/meetings/$id'
+      fullPath: '/meetings/$id'
+      preLoaderRoute: typeof MeetingsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LiveRoute: LiveRoute,
   DevicesIdRoute: DevicesIdRoute,
+  MeetingsIdRoute: MeetingsIdRoute,
   DevicesIndexRoute: DevicesIndexRoute,
   MeetingsIndexRoute: MeetingsIndexRoute,
 }
