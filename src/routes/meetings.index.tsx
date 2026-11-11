@@ -25,7 +25,7 @@ function Meetings() {
       )}
       <div className="mb-4 flex flex-wrap gap-2">
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Rechercher…" className="rounded-lg border border-input bg-card px-3 py-2 text-sm" />
-        {[["all", "Toutes"], ["live", "En direct"], ["done", "Terminées"], ["scheduled", "Planifiées"]].map(([k, l]) => (
+        {([["all", "Toutes"], ["live", "En direct"], ["done", "Terminées"], ["scheduled", "Planifiées"]] as const).map(([k, l]) => (
           <button key={k} onClick={() => setFilter(k)} className={`rounded-lg px-3 py-2 text-sm ${filter === k ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>{l}</button>
         ))}
       </div>
