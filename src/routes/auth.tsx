@@ -7,7 +7,7 @@ import { lovable } from "@/integrations/lovable";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>) => ({ redirect: typeof s.redirect === "string" ? s.redirect : undefined }),
+  validateSearch: (s: Record<string, unknown>) => ({ redirect: typeof s["redirect"] === "string" ? (s["redirect"] as string) : undefined }),
   head: () => seo("Connexion", "Connectez-vous à votre espace SmartMeet AI."),
   component: AuthPage,
 });
@@ -36,7 +36,7 @@ function AuthPage() {
   }
   async function google() {
     const r = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin + "/auth" });
-    if (r.error) return toast.error(String(r.error.message ?? r.error));
+    if (r.error) { toast.error(String(r.error.message ?? r.error)); return; }
     if (r.redirected) return;
     go();
   }

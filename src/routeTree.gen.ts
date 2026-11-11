@@ -10,154 +10,60 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AnalyticsRouteImport } from './routes/analytics'
-import { Route as CopilotRouteImport } from './routes/copilot'
-import { Route as LiveRouteImport } from './routes/live'
-import { Route as SettingsRouteImport } from './routes/settings'
-import { Route as TasksRouteImport } from './routes/tasks'
-import { Route as DevicesIndexRouteImport } from './routes/devices.index'
-import { Route as DevicesIdRouteImport } from './routes/devices.$id'
-import { Route as MeetingsIndexRouteImport } from './routes/meetings.index'
-import { Route as MeetingsIdRouteImport } from './routes/meetings.$id'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AnalyticsRoute = AnalyticsRouteImport.update({
-  id: '/analytics',
-  path: '/analytics',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CopilotRoute = CopilotRouteImport.update({
-  id: '/copilot',
-  path: '/copilot',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LiveRoute = LiveRouteImport.update({
-  id: '/live',
-  path: '/live',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SettingsRoute = SettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const TasksRoute = TasksRouteImport.update({
-  id: '/tasks',
-  path: '/tasks',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DevicesIndexRoute = DevicesIndexRouteImport.update({
-  id: '/devices/',
-  path: '/devices/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DevicesIdRoute = DevicesIdRouteImport.update({
-  id: '/devices/$id',
-  path: '/devices/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MeetingsIndexRoute = MeetingsIndexRouteImport.update({
-  id: '/meetings/',
-  path: '/meetings/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MeetingsIdRoute = MeetingsIdRouteImport.update({
-  id: '/meetings/$id',
-  path: '/meetings/$id',
-  getParentRoute: () => rootRouteImport,
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/analytics': typeof AnalyticsRoute
-  '/copilot': typeof CopilotRoute
-  '/live': typeof LiveRoute
-  '/settings': typeof SettingsRoute
-  '/tasks': typeof TasksRoute
-  '/devices/$id': typeof DevicesIdRoute
-  '/meetings/$id': typeof MeetingsIdRoute
-  '/devices/': typeof DevicesIndexRoute
-  '/meetings/': typeof MeetingsIndexRoute
+  '/auth': typeof AuthRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/analytics': typeof AnalyticsRoute
-  '/copilot': typeof CopilotRoute
-  '/live': typeof LiveRoute
-  '/settings': typeof SettingsRoute
-  '/tasks': typeof TasksRoute
-  '/devices/$id': typeof DevicesIdRoute
-  '/meetings/$id': typeof MeetingsIdRoute
-  '/devices': typeof DevicesIndexRoute
-  '/meetings': typeof MeetingsIndexRoute
+  '/auth': typeof AuthRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/analytics': typeof AnalyticsRoute
-  '/copilot': typeof CopilotRoute
-  '/live': typeof LiveRoute
-  '/settings': typeof SettingsRoute
-  '/tasks': typeof TasksRoute
-  '/devices/$id': typeof DevicesIdRoute
-  '/meetings/$id': typeof MeetingsIdRoute
-  '/devices/': typeof DevicesIndexRoute
-  '/meetings/': typeof MeetingsIndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/analytics'
-    | '/copilot'
-    | '/live'
-    | '/settings'
-    | '/tasks'
-    | '/devices/$id'
-    | '/meetings/$id'
-    | '/devices/'
-    | '/meetings/'
+  fullPaths: '/' | '/auth' | '/dashboard'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/analytics'
-    | '/copilot'
-    | '/live'
-    | '/settings'
-    | '/tasks'
-    | '/devices/$id'
-    | '/meetings/$id'
-    | '/devices'
-    | '/meetings'
+  to: '/' | '/auth' | '/dashboard'
   id:
-    | '__root__'
-    | '/'
-    | '/analytics'
-    | '/copilot'
-    | '/live'
-    | '/settings'
-    | '/tasks'
-    | '/devices/$id'
-    | '/meetings/$id'
-    | '/devices/'
-    | '/meetings/'
+    '__root__' | '/' | '/_authenticated' | '/auth' | '/_authenticated/dashboard'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AnalyticsRoute: typeof AnalyticsRoute
-  CopilotRoute: typeof CopilotRoute
-  LiveRoute: typeof LiveRoute
-  SettingsRoute: typeof SettingsRoute
-  TasksRoute: typeof TasksRoute
-  DevicesIdRoute: typeof DevicesIdRoute
-  MeetingsIdRoute: typeof MeetingsIdRoute
-  DevicesIndexRoute: typeof DevicesIndexRoute
-  MeetingsIndexRoute: typeof MeetingsIndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -169,83 +75,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/analytics': {
-      id: '/analytics'
-      path: '/analytics'
-      fullPath: '/analytics'
-      preLoaderRoute: typeof AnalyticsRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/copilot': {
-      id: '/copilot'
-      path: '/copilot'
-      fullPath: '/copilot'
-      preLoaderRoute: typeof CopilotRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/live': {
-      id: '/live'
-      path: '/live'
-      fullPath: '/live'
-      preLoaderRoute: typeof LiveRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/settings': {
-      id: '/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof SettingsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/tasks': {
-      id: '/tasks'
-      path: '/tasks'
-      fullPath: '/tasks'
-      preLoaderRoute: typeof TasksRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/devices/': {
-      id: '/devices/'
-      path: '/devices'
-      fullPath: '/devices/'
-      preLoaderRoute: typeof DevicesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/devices/$id': {
-      id: '/devices/$id'
-      path: '/devices/$id'
-      fullPath: '/devices/$id'
-      preLoaderRoute: typeof DevicesIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/meetings/': {
-      id: '/meetings/'
-      path: '/meetings'
-      fullPath: '/meetings/'
-      preLoaderRoute: typeof MeetingsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/meetings/$id': {
-      id: '/meetings/$id'
-      path: '/meetings/$id'
-      fullPath: '/meetings/$id'
-      preLoaderRoute: typeof MeetingsIdRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AnalyticsRoute: AnalyticsRoute,
-  CopilotRoute: CopilotRoute,
-  LiveRoute: LiveRoute,
-  SettingsRoute: SettingsRoute,
-  TasksRoute: TasksRoute,
-  DevicesIdRoute: DevicesIdRoute,
-  MeetingsIdRoute: MeetingsIdRoute,
-  DevicesIndexRoute: DevicesIndexRoute,
-  MeetingsIndexRoute: MeetingsIndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
