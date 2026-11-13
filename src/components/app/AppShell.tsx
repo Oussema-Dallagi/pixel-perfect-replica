@@ -1,6 +1,6 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import type { ReactNode } from "react";
-import { LayoutDashboard, Cpu, CalendarClock, Radio, BarChart3, KanbanSquare, Sparkles, Settings, Search, Bell, Wifi } from "lucide-react";
+import { LayoutDashboard, Cpu, CalendarClock, Radio, BarChart3, KanbanSquare, Sparkles, Settings, Users, Search, Bell, Wifi } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nav = [
@@ -8,6 +8,7 @@ const nav = [
   { to: "/devices", label: "Appareils", icon: Cpu },
   { to: "/meetings", label: "Réunions", icon: CalendarClock },
   { to: "/live", label: "Réunion live", icon: Radio },
+  { to: "/people", label: "Participants", icon: Users },
   { to: "/analytics", label: "Analytics", icon: BarChart3 },
   { to: "/tasks", label: "Tâches", icon: KanbanSquare },
   { to: "/copilot", label: "AI Copilot", icon: Sparkles },

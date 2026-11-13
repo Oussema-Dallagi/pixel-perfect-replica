@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as CopilotRouteImport } from './routes/copilot'
 import { Route as LiveRouteImport } from './routes/live'
+import { Route as PeopleRouteImport } from './routes/people'
 import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as DevicesIndexRouteImport } from './routes/devices.index'
@@ -38,6 +39,11 @@ const CopilotRoute = CopilotRouteImport.update({
 const LiveRoute = LiveRouteImport.update({
   id: '/live',
   path: '/live',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PeopleRoute = PeopleRouteImport.update({
+  id: '/people',
+  path: '/people',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SettingsRoute = SettingsRouteImport.update({
@@ -76,6 +82,7 @@ export interface FileRoutesByFullPath {
   '/analytics': typeof AnalyticsRoute
   '/copilot': typeof CopilotRoute
   '/live': typeof LiveRoute
+  '/people': typeof PeopleRoute
   '/settings': typeof SettingsRoute
   '/tasks': typeof TasksRoute
   '/devices/$id': typeof DevicesIdRoute
@@ -88,6 +95,7 @@ export interface FileRoutesByTo {
   '/analytics': typeof AnalyticsRoute
   '/copilot': typeof CopilotRoute
   '/live': typeof LiveRoute
+  '/people': typeof PeopleRoute
   '/settings': typeof SettingsRoute
   '/tasks': typeof TasksRoute
   '/devices/$id': typeof DevicesIdRoute
@@ -101,6 +109,7 @@ export interface FileRoutesById {
   '/analytics': typeof AnalyticsRoute
   '/copilot': typeof CopilotRoute
   '/live': typeof LiveRoute
+  '/people': typeof PeopleRoute
   '/settings': typeof SettingsRoute
   '/tasks': typeof TasksRoute
   '/devices/$id': typeof DevicesIdRoute
@@ -115,6 +124,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/copilot'
     | '/live'
+    | '/people'
     | '/settings'
     | '/tasks'
     | '/devices/$id'
@@ -127,6 +137,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/copilot'
     | '/live'
+    | '/people'
     | '/settings'
     | '/tasks'
     | '/devices/$id'
@@ -139,6 +150,7 @@ export interface FileRouteTypes {
     | '/analytics'
     | '/copilot'
     | '/live'
+    | '/people'
     | '/settings'
     | '/tasks'
     | '/devices/$id'
@@ -152,6 +164,7 @@ export interface RootRouteChildren {
   AnalyticsRoute: typeof AnalyticsRoute
   CopilotRoute: typeof CopilotRoute
   LiveRoute: typeof LiveRoute
+  PeopleRoute: typeof PeopleRoute
   SettingsRoute: typeof SettingsRoute
   TasksRoute: typeof TasksRoute
   DevicesIdRoute: typeof DevicesIdRoute
@@ -188,6 +201,13 @@ declare module '@tanstack/react-router' {
       path: '/live'
       fullPath: '/live'
       preLoaderRoute: typeof LiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/people': {
+      id: '/people'
+      path: '/people'
+      fullPath: '/people'
+      preLoaderRoute: typeof PeopleRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/settings': {
@@ -240,6 +260,7 @@ const rootRouteChildren: RootRouteChildren = {
   AnalyticsRoute: AnalyticsRoute,
   CopilotRoute: CopilotRoute,
   LiveRoute: LiveRoute,
+  PeopleRoute: PeopleRoute,
   SettingsRoute: SettingsRoute,
   TasksRoute: TasksRoute,
   DevicesIdRoute: DevicesIdRoute,
